@@ -1,0 +1,15 @@
+# Core dependencies for Customer Segmentation EDA
+# Generated from pyproject.toml
+# Install with: pip install -r requirements.txt
+
+# Data manipulation and analysis
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Scientific computing
+scipy>=1.7.0
+

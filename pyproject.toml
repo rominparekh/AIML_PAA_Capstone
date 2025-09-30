@@ -1,0 +1,291 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "customer-segmentation-eda"
+version = "1.0.0"
+description = "Comprehensive Exploratory Data Analysis tools for customer segmentation using 33,000 customer records"
+readme = "README_EDA_Tools.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "UC Berkeley AIML PAA Capstone", email = "roparekh@example.com"}
+]
+maintainers = [
+    {name = "UC Berkeley AIML PAA Capstone", email = "roparekh@example.com"}
+]
+keywords = [
+    "customer-segmentation",
+    "exploratory-data-analysis",
+    "eda",
+    "data-science",
+    "machine-learning",
+    "clustering",
+    "visualization",
+    "business-analytics"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# Core dependencies from README_EDA_Tools.md
+dependencies = [
+    "pandas>=1.3.0",
+    "numpy>=1.21.0",
+    "matplotlib>=3.4.0",
+    "seaborn>=0.11.0",
+    "scipy>=1.7.0",
+]
+
+[project.optional-dependencies]
+# Development dependencies
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+    "isort>=5.10.0",
+]
+
+# Jupyter notebook support
+notebook = [
+    "jupyter>=1.0.0",
+    "jupyterlab>=3.0.0",
+    "ipykernel>=6.0.0",
+    "ipywidgets>=7.6.0",
+]
+
+# PDF generation dependencies
+pdf = [
+    "reportlab>=3.6.0",
+    "Pillow>=9.0.0",
+    "markdown2>=2.4.0",
+]
+
+# Advanced PDF conversion (optional)
+pdf-advanced = [
+    "weasyprint>=54.0",
+    "markdown>=3.3.0",
+]
+
+# Documentation
+docs = [
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "myst-parser>=0.18.0",
+]
+
+# All optional dependencies (uv compatible - explicit list)
+all = [
+    # dev
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+    "isort>=5.10.0",
+    # notebook
+    "jupyter>=1.0.0",
+    "jupyterlab>=3.0.0",
+    "ipykernel>=6.0.0",
+    "ipywidgets>=7.6.0",
+    # pdf
+    "reportlab>=3.6.0",
+    "Pillow>=9.0.0",
+    "markdown2>=2.4.0",
+    # pdf-advanced
+    "weasyprint>=54.0",
+    "markdown>=3.3.0",
+    # docs
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "myst-parser>=0.18.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/roparekh/customer-segmentation-eda"
+Documentation = "https://github.com/roparekh/customer-segmentation-eda/blob/main/README_EDA_Tools.md"
+Repository = "https://github.com/roparekh/customer-segmentation-eda"
+"Bug Tracker" = "https://github.com/roparekh/customer-segmentation-eda/issues"
+
+[project.scripts]
+# Command-line scripts
+customer-eda = "complete_eda_analysis:main"
+
+# Hatchling build configuration (uv compatible)
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+include = [
+    "*.py",
+    "*.md",
+    "*.ipynb",
+    "data/*.csv",
+    "figs/*.png",
+]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "*.py",
+    "*.md",
+    "*.ipynb",
+    "*.toml",
+    "*.txt",
+    "*.in",
+    "LICENSE",
+    "data/",
+    "figs/",
+]
+
+# Black configuration
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# isort configuration
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+# pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=customer_segmentation_eda",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["customer_segmentation_eda"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/virtualenv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]
+
+# mypy configuration
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+follow_imports = "normal"
+ignore_missing_imports = true
+
+# Flake8 configuration (in setup.cfg or .flake8 file)
+# Note: flake8 doesn't support pyproject.toml natively yet
+# Create a .flake8 file with:
+# [flake8]
+# max-line-length = 100
+# extend-ignore = E203, W503
+# exclude = .git,__pycache__,build,dist,.venv
+
+# Ruff configuration (modern alternative to flake8)
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.isort]
+known-first-party = ["customer_segmentation_eda"]
+
+# Bandit security linter configuration
+[tool.bandit]
+exclude_dirs = ["tests", "venv", ".venv"]
+skips = ["B101", "B601"]
+
+# UV-specific configuration
+[tool.uv]
+# UV package manager settings for faster installs
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-cov>=3.0.0",
+    "black>=22.0.0",
+    "flake8>=4.0.0",
+    "mypy>=0.950",
+    "isort>=5.10.0",
+    "ruff>=0.0.270",
+]
+
+# UV workspace configuration (if using monorepo)
+[tool.uv.workspace]
+members = ["."]
+
+# UV sources (optional - for private registries)
+# [tool.uv.sources]
+# my-package = { git = "https://github.com/user/repo.git" }
